@@ -12,6 +12,7 @@ steps:
     name: "gcr.io/cloud-builders/docker"
     entrypoint: "bash"
     args:
+      - "ls /workspace/"
       - "export _APP_VERSION=$(cat /workspace/app_version.txt) && "
       - "docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION} ."
 
@@ -19,6 +20,7 @@ steps:
     name: "gcr.io/cloud-builders/docker"
     entrypoint: "bash"
     args:
+      - "ls /workspace/"
       - "export _APP_VERSION=$(cat /workspace/app_version.txt) && "
       - "docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION}"
 #- id: 'tf init'
