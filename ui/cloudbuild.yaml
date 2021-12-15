@@ -16,9 +16,9 @@ steps:
     args:
       - -c
       - |
-        echo $(cat app_version.txt)
-        _APP_VERSION=$(cat app_version.txt)
-        echo $(_APP_VERSION)
+        echo $$(cat app_version.txt)
+        _APP_VERSION=$$(cat app_version.txt)
+        echo $$(_APP_VERSION)
         docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION} . 
         docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION}
 
