@@ -12,17 +12,13 @@ steps:
 
   - id: "build web ui"
     name: "gcr.io/cloud-builders/docker"
-    entrypoint: "bash"
+    entrypoint: "sh"
     args:
       - -c
       - |
-        echo $$(cat app_version.txt)
-        export _APP_VERSION=$$(cat app_version.txt)
-        echo ${_APP_VERSION}
-        docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION} . 
-        docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION}
-substitutions:
-  _APP_VERSION: latest # default value
+        echo $(cat app_version.txt)
+        docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat app_version.txt) . 
+        docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat app_version.txt)
 
 #- id: 'tf init'
 #  name: 'hashicorp/terraform:1.0.0'
