@@ -14,9 +14,13 @@ steps:
     name: "ubuntu"
     entrypoint: "bash"
     args:
-      - "echo $(cat app_version.txt)"
-      - "export _APP_VERSION=$(cat app_version.txt)"
-      - "docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION} ."
+      - -c
+      - |
+        ls
+        ls /workspace
+        echo $(cat app_version.txt)
+        export _APP_VERSION=$(cat app_version.txt)
+        docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION} .
 
   - id: "push web ui container"
     name: "ubuntu"
