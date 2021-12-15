@@ -16,9 +16,10 @@ steps:
     args:
       - -c
       - |
+        cd ./ui
         echo $(cat app_version.txt)
-        docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat app_version.txt) . 
-        docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat app_version.txt)
+        docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat ../app_version.txt) .
+        docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat ../app_version.txt)
 
 #- id: 'tf init'
 #  name: 'hashicorp/terraform:1.0.0'
