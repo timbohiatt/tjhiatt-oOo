@@ -17,10 +17,12 @@ steps:
       - -c
       - |
         echo $$(cat app_version.txt)
-        export APP_VERSION=$$(cat app_version.txt)
-        echo ${APP_VERSION}
-        docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${APP_VERSION} . 
-        docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${APP_VERSION}
+        export _APP_VERSION=$$(cat app_version.txt)
+        echo ${_APP_VERSION}
+        docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION} . 
+        docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION}
+  substitutions:
+    _APP_VERSION: latest # default value
 
 #- id: 'tf init'
 #  name: 'hashicorp/terraform:1.0.0'
