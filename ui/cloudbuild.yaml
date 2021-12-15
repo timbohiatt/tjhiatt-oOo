@@ -1,6 +1,6 @@
 steps:
   - id: "store app verion"
-    name: ubuntu
+    name: node
     entrypoint: bash
     args:
       - -c

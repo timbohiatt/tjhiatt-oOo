@@ -7,7 +7,7 @@ locals {
   branch = var.branch
 }
 
-resource "google_cloudbuild_trigger" "lz-trigger-sdod-ui" {
+resource "google_cloudbuild_trigger" "lz-trigger-tjhiatt-ooo-ui" {
   name    = "lz-trigger-${local.project_id}-ui-${local.env}"
   project = local.project_id              //Project in Which Trigger is Created
   github {
