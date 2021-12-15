@@ -20,17 +20,19 @@ steps:
         docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat ./app_version.txt) -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:latest  -f ./ui/Dockerfile .
         docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat ./app_version.txt)
 
-  - id: 'tf init'
-    name: 'hashicorp/terraform:1.0.0'
-    entrypoint: 'sh'
+  - id: "tf init"
+    name: "hashicorp/terraform:1.0.0"
+    entrypoint: "sh"
     args:
-    - '-c'
-    - | 
+      - "-c"
+      - |
         echo $(cat terraform.tfvars)
         echo "IMAGE_VERSION=$(cat ./app_version.txt)" >> terraform.tfvars
         if [ -d "infra/lz/${_ENV}/" ]; then
           cd infra/lz/${_ENV}/
           terraform init -var-file=terraform.tfvars
+        fi
+
 #      else
 #        for dir in infra/lz/*/
 #        do
@@ -38,13 +40,13 @@ steps:
 #          env=${dir%*/}
 #          env=${env#*/}
 ##          echo ""
- #         echo "*************** TERRAFORM INIT ******************"
- #         echo "******* At environment: ${env} ********"
- #         echo "*************************************************"
- #         terraform init || exit 1
- #         cd ../../../
- #       done
-        fi
+#         echo "*************** TERRAFORM INIT ******************"
+#         echo "******* At environment: ${env} ********"
+#         echo "*************************************************"
+#         terraform init || exit 1
+#         cd ../../../
+#       done
+#       fi
 
 #- id: tf plan
 #  name: 'hashicorp/terraform:1.0.0'
