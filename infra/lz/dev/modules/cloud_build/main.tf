@@ -23,5 +23,5 @@ resource "google_cloudbuild_trigger" "lz-trigger-tjhiatt-ooo-ui" {
     _PROJECT_ID      = local.deployment_project //Project in which Terraform is Deployed
   }
 
-  filename = "cloudbuild.yaml"
+  filename = "./ui/cloudbuild.yaml"
 }
