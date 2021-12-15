@@ -44,6 +44,17 @@ steps:
           terraform plan -var-file=terraform.tfvars
         fi
 
+  - id: "tf apply"
+    name: "hashicorp/terraform:1.0.0"
+    entrypoint: "sh"
+    args:
+      - "-c"
+      - |
+        if [ -d "infra/lz/${_ENV}/" ]; then
+          cd infra/lz/${_ENV}/
+          terraform apply -var-file=terraform.tfvars
+        fi
+
 #      else
 #        for dir in infra/lz/*/
 #        do
