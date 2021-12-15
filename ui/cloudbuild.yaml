@@ -1,4 +1,10 @@
 steps:
+  - id: "gcp api enable"
+    name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "gcloud"
+    args:
+      ["gcloud", "services", "enable", "cloudresourcemanager.googleapis.com"]
+
   - id: "store app verion"
     name: node
     entrypoint: bash
