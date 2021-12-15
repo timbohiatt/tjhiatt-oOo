@@ -1,0 +1,91 @@
+steps:
+  - id: "store app verion"
+    name: ubuntu
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        # Save package.json app version to persistent volume mount: "/workspace"
+        echo $(node -p -e "require('ui/package.json').version") > /workspace/app_version.txt
+
+  - id: "build web ui"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat /workspace/app_version.txt)",
+        ".",
+      ]
+
+  - id: "push web ui container"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat /workspace/app_version.txt)",
+      ]
+#- id: 'tf init'
+#  name: 'hashicorp/terraform:1.0.0'
+#  entrypoint: 'sh'
+#  args:
+#  - '-c'
+#  - |
+#      if [ -d "infra/lz/${_ENV}/" ]; then
+#        cd infra/lz/${_ENV}/
+#        terraform init -var-file=env.tfvars
+#      else
+#        for dir in infra/lz/*/
+#        do
+#          cd ${dir}
+#          env=${dir%*/}
+#          env=${env#*/}
+#          echo ""
+#          echo "*************** TERRAFORM INIT ******************"
+##          echo "******* At environment: ${env} ********"
+#          echo "*************************************************"
+#          terraform init || exit 1
+#          cd ../../../
+#        done
+#      fi
+
+#- id: tf plan
+#  name: 'hashicorp/terraform:1.0.0'
+#  entrypoint: sh
+#  args:
+#    - '-c'
+#    - |
+#      if [ -d "infra/lz/${_ENV}/" ]; then
+#        cd infra/lz/${_ENV}/
+#        terraform plan -var-file=env.tfvars
+#      else
+#        for dir in infra/lz/*/
+#        do
+#          cd ${dir}
+#          env=${dir%*/}
+#          env=${env#*/}
+#          echo ""
+#          echo "*************** TERRAFOM PLAN ******************"
+#          echo "******* At environment: ${env} ********"
+#          echo "*************************************************"
+#          terraform plan || exit 1
+#          cd ../../../
+#        done
+#     fi
+
+# [START tf-apply]
+#- id: 'tf apply'
+#  name: 'hashicorp/terraform:1.0.0'
+#  entrypoint: 'sh'
+#  args:
+#  - '-c'
+#  - |
+#      if [ -d "infra/lz/${_ENV}/" ]; then
+#        cd infra/lz/${_ENV}/
+#        terraform apply -var-file=env.tfvars  -auto-approve
+#      else
+#        echo "***************************** SKIPPING APPLYING *******************************"
+#        echo "Branch '$BRANCH_NAME' does not represent an oficial environment."
+#        echo "*******************************************************************************"
+#      fi
+# [END tf-apply]
