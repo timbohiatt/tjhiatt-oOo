@@ -21,8 +21,8 @@ steps:
         echo ${_APP_VERSION}
         docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION} . 
         docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION}
-  substitutions:
-    _APP_VERSION: latest # default value
+substitutions:
+  _APP_VERSION: latest # default value
 
 #- id: 'tf init'
 #  name: 'hashicorp/terraform:1.0.0'
