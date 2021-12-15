@@ -6,7 +6,7 @@ steps:
       - -c
       - |
         # Save package.json app version to persistent volume mount: "/workspace"
-        echo $(node -p -e "require('ui/package.json').version") > /workspace/app_version.txt
+        echo $(node -p -e "require('./ui/package.json').version") > /workspace/app_version.txt
 
   - id: "build web ui"
     name: "gcr.io/cloud-builders/docker"
