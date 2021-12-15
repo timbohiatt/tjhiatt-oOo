@@ -7,8 +7,6 @@ steps:
       - |
         # Save package.json app version to persistent volume mount: "/workspace"
         echo $(node -p -e "require('./ui/package.json').version") > /workspace/app_version.txt
-        ls
-        ls /workspace
 
   - id: "build web ui"
     name: "gcr.io/cloud-builders/docker"
@@ -16,9 +14,10 @@ steps:
     args:
       - -c
       - |
-        echo $(cat ./app_version.txt)
-        docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat ./app_version.txt) -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:latest  -f ./ui/Dockerfile .
-        docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat ./app_version.txt)
+        cd ui/
+         echo $(cat ../app_version.txt)
+        docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat ../app_version.txt) -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:latest .
+        docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat ../app_version.txt)
 
   - id: "tf init"
     name: "hashicorp/terraform:1.0.0"
@@ -26,10 +25,10 @@ steps:
     args:
       - "-c"
       - |
-        echo $(cat terraform.tfvars)
-        echo "IMAGE_VERSION=$(cat ./app_version.txt)" >> terraform.tfvars
         if [ -d "infra/lz/${_ENV}/" ]; then
           cd infra/lz/${_ENV}/
+          echo $(cat terraform.tfvars)
+          echo "IMAGE_VERSION=$(cat ../app_version.txt)" >> terraform.tfvars
           terraform init -var-file=terraform.tfvars
         fi
 
