@@ -18,6 +18,7 @@ steps:
          echo $(cat ../app_version.txt)
         docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat ../app_version.txt) -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:latest .
         docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:$(cat ../app_version.txt)
+        docker push gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:latest
 
   - id: "tf init"
     name: "hashicorp/terraform:1.0.0"
@@ -38,8 +39,6 @@ steps:
       - |
         if [ -d "infra/lz/${_ENV}/" ]; then
           cd infra/lz/${_ENV}/
-          printf $(cat ../../../app_version.txt)
-          printf $(cat terraform.tfvars)
           printf "\nIMAGE_VERSION=\"$(cat ../../../app_version.txt)\"" >> terraform.tfvars
           printf $(cat terraform.tfvars)
           terraform plan -var-file=terraform.tfvars

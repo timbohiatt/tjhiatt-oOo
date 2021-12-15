@@ -53,6 +53,15 @@ resource "google_project_service" "project" {
 }
 
 
+resource "time_sleep" "google_project_service_apis_enabling" {
+  depends_on = [
+    google_project_service.project
+  ]
+
+  create_duration = "1m"
+}
+
+
 /*
   Resources: Container Registry
 */
