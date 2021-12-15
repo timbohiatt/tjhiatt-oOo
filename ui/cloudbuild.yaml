@@ -11,7 +11,7 @@ steps:
         ls /workspace
 
   - id: "build web ui"
-    name: "ubuntu"
+    name: "gcr.io/cloud-builders/docker"
     entrypoint: "bash"
     args:
       - -c
