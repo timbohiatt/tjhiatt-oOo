@@ -27,10 +27,6 @@ steps:
       - |
         if [ -d "infra/lz/${_ENV}/" ]; then
           cd infra/lz/${_ENV}/
-          printf $(cat ../../../app_version.txt)
-          printf $(cat terraform.tfvars)
-          printf "\nIMAGE_VERSION=$(cat ../../../app_version.txt)" >> terraform.tfvars
-          printf $(cat terraform.tfvars)
           terraform init -var-file=terraform.tfvars
         fi
 
@@ -44,7 +40,7 @@ steps:
           cd infra/lz/${_ENV}/
           printf $(cat ../../../app_version.txt)
           printf $(cat terraform.tfvars)
-          printf "\nIMAGE_VERSION=$(cat ../../../app_version.txt)" >> terraform.tfvars
+          printf "\nIMAGE_VERSION=\"$(cat ../../../app_version.txt)\"" >> terraform.tfvars
           printf $(cat terraform.tfvars)
           terraform plan -var-file=terraform.tfvars
         fi
