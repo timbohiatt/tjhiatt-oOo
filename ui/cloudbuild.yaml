@@ -11,7 +11,7 @@ steps:
         ls /workspace
 
   - id: "build web ui"
-    name: "gcr.io/cloud-builders/docker"
+    name: "ubuntu"
     entrypoint: "bash"
     args:
       - "ls"
@@ -19,7 +19,7 @@ steps:
       - "docker build -t gcr.io/${_PROJECT_ID}/${_PROJECT_ID}-ui:${_APP_VERSION} ."
 
   - id: "push web ui container"
-    name: "gcr.io/cloud-builders/docker"
+    name: "ubuntu"
     entrypoint: "bash"
     args:
       - "ls"
