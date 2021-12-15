@@ -29,7 +29,7 @@ steps:
           cd infra/lz/${_ENV}/
           echo $(cat ../../../app_version.txt)
           echo $(cat terraform.tfvars)
-          echo "IMAGE_VERSION=$(cat ../../../app_version.txt)" >> terraform.tfvars
+          echo "\nIMAGE_VERSION=$(cat ../../../app_version.txt)" >> terraform.tfvars
           echo $(cat terraform.tfvars)
           terraform init -var-file=terraform.tfvars
         fi
@@ -44,7 +44,7 @@ steps:
           cd infra/lz/${_ENV}/
           echo $(cat ../../../app_version.txt)
           echo $(cat terraform.tfvars)
-          echo "IMAGE_VERSION=$(cat ../../../app_version.txt)" >> terraform.tfvars
+          echo "\nIMAGE_VERSION=$(cat ../../../app_version.txt)" >> terraform.tfvars
           echo $(cat terraform.tfvars)
           terraform plan -var-file=terraform.tfvars
         fi
