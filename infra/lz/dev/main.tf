@@ -22,7 +22,7 @@ locals {
 terraform {
   backend "gcs" {
     bucket = "tf-state-timhiatt-ooo" 
-    prefix = "terraform/state"
+    prefix = "terraform/state/lz"
   }
 }
 

@@ -29,7 +29,7 @@ data "google_project" "project" {
 terraform {
   backend "gcs" {
     bucket = "tf-state-timhiatt-ooo" 
-    prefix = "terraform/state"
+    prefix = "terraform/state/app"
   }
 }
 
