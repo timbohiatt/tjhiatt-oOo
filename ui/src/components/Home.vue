@@ -3,7 +3,7 @@
     <div
       class="relative z-30 p-3 px-12 text-2xl text-white bg-gray-300 bg-opacity-30 rounded-xl"
     >
-    Leaving Canada
+    Going to See Grandma! 
     </div>
     <video
       autoplay
