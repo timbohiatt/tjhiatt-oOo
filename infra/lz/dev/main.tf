@@ -49,16 +49,6 @@ resource "google_project_service" "project" {
   //disable_dependent_services = true
 }
 
-
-/*resource "time_sleep" "google_project_service_apis_enabling" {
-  depends_on = [
-    google_project_service.project
-  ]
-
-  create_duration = "1m"
-}*/ 
-
-
 /*
   Resources: Container Registry
 */
@@ -68,80 +58,6 @@ resource "google_container_registry" "registry" {
   depends_on = [google_project_service.project]
 }
 
-
-/*
-  Resources: Cloud Run - Portal UI
-*/
-/*resource "google_cloud_run_service" "timhiatt-ooo-ui" {
-  provider = google-beta
-  name     = "${data.google_project.project.project_id}-ui"
-  project  = data.google_project.project.project_id
-  location = local.project_region
-  depends_on = [google_project_service.project]
-
-  metadata {
-    annotations = {
-      "run.googleapis.com/ingress" : "internal-and-cloud-load-balancing"
-    }
-  }
-
-  template {
-    spec {
-      containers {
-        image = "gcr.io/${data.google_project.project.project_id}/${data.google_project.project.project_id}-ui:${var.IMAGE_VERSION}"
-        ports {
-          name = "http1"
-          container_port = "80"
-        }
-        #env {
-        #  name = "SOURCE"
-        #  value = "remote"
-        #}
-        #env {
-        #  name = "TARGET"
-        #  value = "home"
-        #}
-      }
-    }
-    metadata {
-      annotations = {
-        "autoscaling.knative.dev/maxScale"      = "100"
-        //"run.googleapis.com/cloudsql-instances" = google_sql_database_instance.instance.connection_name
-        "run.googleapis.com/client-name"        = "ooo-ui"
-      }
-    }
-  }
-
-  traffic {
-    percent         = 100
-    latest_revision = true
-  }
-  autogenerate_revision_name = true
-  lifecycle {
-    ignore_changes = [
-        metadata.0.annotations,
-    ]
-  }
-}
-
-/*
-resource "google_storage_bucket" "timhiatt-ooo" {
-  name          = "timhiatt-ooo"
-  project       = data.google_project.project.project_id
-  location      = "EU"
-  force_destroy = false
-  uniform_bucket_level_access = true
-
-  cors {
-    origin          = ["http://image-store.com"]
-    method          = ["GET", "HEAD", "PUT", "POST", "DELETE"]
-    response_header = ["*"]
-    max_age_seconds = 3600
-  }
-}*/
-
-
-/*
 module "cloud-build-dev" {
   source = "./modules/cloud_build"
   project_id = data.google_project.project.project_id
@@ -150,4 +66,4 @@ module "cloud-build-dev" {
   branch = "^develop$"
   repo_owner = "timbohiatt"
   repo_name = "tjhiatt-oOo"
-}*/
+}

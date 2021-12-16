@@ -26,8 +26,8 @@ steps:
     args:
       - "-c"
       - |
-        if [ -d "infra/lz/${_ENV}/" ]; then
-          cd infra/lz/${_ENV}/
+        if [ -d "infra/app/${_ENV}/" ]; then
+          cd infra/app/${_ENV}/
           terraform init -var-file=terraform.tfvars
         fi
 
@@ -37,8 +37,8 @@ steps:
     args:
       - "-c"
       - |
-        if [ -d "infra/lz/${_ENV}/" ]; then
-          cd infra/lz/${_ENV}/
+        if [ -d "infra/app/${_ENV}/" ]; then
+          cd infra/app/${_ENV}/
           printf "\nIMAGE_VERSION=\"$(cat ../../../app_version.txt)\"" >> terraform.tfvars
           printf $(cat terraform.tfvars)
           terraform plan -var-file=terraform.tfvars
@@ -50,7 +50,7 @@ steps:
     args:
       - "-c"
       - |
-        if [ -d "infra/lz/${_ENV}/" ]; then
-          cd infra/lz/${_ENV}/
+        if [ -d "infra/app/${_ENV}/" ]; then
+          cd infra/app/${_ENV}/
           terraform apply -var-file=terraform.tfvars -auto-approve
         fi
