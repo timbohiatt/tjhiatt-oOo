@@ -71,6 +71,10 @@ resource "google_cloud_run_service" "timhiatt-ooo-ui" {
         #  name = "TARGET"
         #  value = "home"
         #}
+        #env {
+        #  name = "TARGET"
+        #  value = "home"
+        #}
       }
     }
     metadata {
