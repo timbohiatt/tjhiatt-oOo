@@ -17,13 +17,6 @@ locals {
 }
 
 /*
-  Data GCP Project Variables
-*/
-data "google_project" "project" {
-  project_id      = var.GCP_PROJECT
-}
-
-/*
   Terraform State
 */
 terraform {
@@ -31,6 +24,13 @@ terraform {
     bucket = "tf-state-timhiatt-ooo" 
     prefix = "terraform/state"
   }
+}
+
+/*
+  Data GCP Project Variables
+*/
+data "google_project" "project" {
+  project_id      = var.GCP_PROJECT
 }
 
 /*
@@ -46,7 +46,6 @@ resource "google_project_service" "project" {
     create = "30m"
     update = "40m"
   }
-
   //disable_dependent_services = true
 }
 
@@ -142,7 +141,7 @@ resource "google_storage_bucket" "timhiatt-ooo" {
 }*/
 
 
-
+/*
 module "cloud-build-dev" {
   source = "./modules/cloud_build"
   project_id = data.google_project.project.project_id
@@ -151,4 +150,4 @@ module "cloud-build-dev" {
   branch = "^develop$"
   repo_owner = "timbohiatt"
   repo_name = "tjhiatt-oOo"
-}
+}*/
