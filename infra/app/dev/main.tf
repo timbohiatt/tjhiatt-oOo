@@ -24,6 +24,17 @@ data "google_project" "project" {
 }
 
 /*
+  Terraform State
+*/
+terraform {
+  backend "gcs" {
+    bucket = "tf-state-timhiatt-ooo" 
+    prefix = "terraform/state"
+  }
+}
+
+
+/*
   Resource: GCP API's and Services
 */
 resource "google_project_service" "project" {
