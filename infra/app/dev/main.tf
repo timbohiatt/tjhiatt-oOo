@@ -42,8 +42,7 @@ resource "google_project_service" "project" {
 /*
   Resources: Cloud Run - Portal UI
 */
-
-/*resource "google_cloud_run_service" "timhiatt-ooo-ui" {
+resource "google_cloud_run_service" "timhiatt-ooo-ui" {
   provider = google-beta
   name     = "${data.google_project.project.project_id}-ui"
   project  = data.google_project.project.project_id
@@ -78,7 +77,7 @@ resource "google_project_service" "project" {
       annotations = {
         "autoscaling.knative.dev/maxScale"      = "100"
         //"run.googleapis.com/cloudsql-instances" = google_sql_database_instance.instance.connection_name
-        "run.googleapis.com/client-name"        = "ooo-ui"
+        "run.googleapis.com/client-name"        = "${data.google_project.project.project_id}-ui"
       }
     }
   }
@@ -93,4 +92,4 @@ resource "google_project_service" "project" {
         metadata.0.annotations,
     ]
   }
-}*/
+}
