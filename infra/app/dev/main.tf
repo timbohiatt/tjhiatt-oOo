@@ -51,7 +51,8 @@ resource "google_cloud_run_service" "timhiatt-ooo-ui" {
 
   metadata {
     annotations = {
-      "run.googleapis.com/ingress" : "internal-and-cloud-load-balancing"
+      //"run.googleapis.com/ingress" : "internal-and-cloud-load-balancing"
+      "run.googleapis.com/ingress" : "all"
     }
   }
 
@@ -96,4 +97,22 @@ resource "google_cloud_run_service" "timhiatt-ooo-ui" {
         metadata.0.annotations,
     ]
   }
+}
+
+
+data "google_iam_policy" "noauth" {
+  binding {
+    role = "roles/run.invoker"
+    members = [
+      "allUsers",
+    ]
+  }
+}
+
+resource "google_cloud_run_service_iam_policy" "noauth" {
+  location    = google_cloud_run_service.timhiatt-ooo-ui.location
+  project     = google_cloud_run_service.timhiatt-ooo-ui.project
+  service     = google_cloud_run_service.timhiatt-ooo-ui.name
+
+  policy_data = data.google_iam_policy.noauth.policy_data
 }
