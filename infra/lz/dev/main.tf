@@ -26,14 +26,12 @@ data "google_project" "project" {
 /*
   Terraform State
 */
-/*data "terraform_remote_state" "google"{
-  backend = "gcs"
-  config = {
+terraform {
+  backend "gcs" {
     bucket = "tf-state-timhiatt-ooo" 
     prefix = "terraform/state"
   }
-  depends_on = [data.google_project.project]
-}*/
+}
 
 /*
   Resource: GCP API's and Services
